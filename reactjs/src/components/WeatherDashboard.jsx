@@ -7,10 +7,11 @@ const WeatherDashboard = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
+  const baseURL = "https://golden-owl-intern-laravel-hx1c59l3z-toi-la-qanhs-projects.vercel.app/";
 
   const fetchWeatherData = async (city = "Ho Chi Minh City") => {
     try {
-      const response = await axios.get(`https://golden-owl-intern-laravel.vercel.app/${city}`);
+      const response = await axios.get(`${baseURL}/${city}`);
       setWeatherData(response.data);
       setLoading(false);
       console.log(response);
@@ -43,10 +44,10 @@ const WeatherDashboard = () => {
   };
 
   const handleSubscribe = async () => {
-    await axios.get("https://golden-owl-intern-laravel.vercel.app/sanctum/csrf-cookie");
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
     try {
       const response = await axios.post(
-        "https://golden-owl-intern-laravel.vercel.app/subscribe",
+        `${baseURL}/subscribe`,
         {
           email: email,
         },
@@ -70,11 +71,11 @@ const WeatherDashboard = () => {
     
     try {
       // Retrieve CSRF cookie
-      await axios.get("https://golden-owl-intern-laravel.vercel.app/sanctum/csrf-cookie");
+      await axios.get(`${baseURL}/sanctum/csrf-cookie`);
 
       // Proceed to subscribe
       const response = await axios.post(
-        "https://golden-owl-intern-laravel.vercel.app/unsubscribe",
+        `${baseURL}/unsubscribe`,
         {
           email: email,
         },
