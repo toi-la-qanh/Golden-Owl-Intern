@@ -45,7 +45,12 @@ const WeatherDashboard = () => {
 
   const handleSubscribe = async () => {
     // Retrieve CSRF cookie
-    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
+      headers: {
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    });
 
     navigator.geolocation.getCurrentPosition(async (position) => {
       const latitude = position.coords.latitude;
@@ -78,7 +83,12 @@ const WeatherDashboard = () => {
   };
   const handleUnSubscribe = async () => {
     // Retrieve CSRF cookie
-    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
+      headers: {
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    });
 
     try {
       // Proceed to unsubscribe
