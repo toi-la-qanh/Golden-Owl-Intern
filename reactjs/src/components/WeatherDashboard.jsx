@@ -44,36 +44,44 @@ const WeatherDashboard = () => {
   };
 
   const handleSubscribe = async () => {
+    // Retrieve CSRF cookie
     await axios.get(`${baseURL}/sanctum/csrf-cookie`);
-    try {
-      const response = await axios.post(
-        `${baseURL}/subscribe`,
-        {
-          email: email,
-        },
-        {
-          headers: {
-            Accept: "application/json",
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      try {
+        const response = await axios.post(
+          `${baseURL}/subscribe`,
+          {
+            email: email,
+            lat: latitude,
+            long: longitude,
           },
-          withCredentials: true,
-          withXSRFToken: true,
-        }
-      );
-      console.log(response);
-      setError("");
-    } catch (err) {
-      // setError("Could not fetch weather data. Maybe wrong city or country.");
-      // setLoading(false);
-      console.log(err);
-    }
+          {
+            headers: {
+              Accept: "application/json",
+            },
+            withCredentials: true,
+            withXSRFToken: true,
+          }
+        );
+        console.log(response);
+        alert("Subscribe email successfully !");
+        setError("");
+      } catch (err) {
+        setError(err.email);
+        // setLoading(false);
+        console.log(err);
+      }
+    });
   };
   const handleUnSubscribe = async () => {
-    
-    try {
-      // Retrieve CSRF cookie
-      await axios.get(`${baseURL}/sanctum/csrf-cookie`);
+    // Retrieve CSRF cookie
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
 
-      // Proceed to subscribe
+    try {
+      // Proceed to unsubscribe
       const response = await axios.post(
         `${baseURL}/unsubscribe`,
         {
@@ -88,9 +96,10 @@ const WeatherDashboard = () => {
         }
       );
       console.log(response);
+      alert("Unsubscribe email successfully !");
       setError("");
     } catch (err) {
-      // setError("Could not fetch weather data. Maybe wrong city or country.");
+      setError(err.email);
       // setLoading(false);
       console.log(err);
     }
@@ -148,7 +157,11 @@ const WeatherDashboard = () => {
             <p className="text-red-600">{error}</p>
             <br />
             <div className="">
-              <button className="text-white bg-blue-600 w-full hover:bg-blue-700" type="button" onClick={handleSubscribe}>
+              <button
+                className="text-white bg-blue-600 w-full hover:bg-blue-700"
+                type="button"
+                onClick={handleSubscribe}
+              >
                 Subscribe
               </button>
               <div class="flex items-center my-4">
@@ -156,10 +169,16 @@ const WeatherDashboard = () => {
                 <span class="px-2">or</span>
                 <div class="flex-1 border-b border-gray-700 ml-2">{}</div>
               </div>
-              <button className="text-white bg-blue-400 w-full hover:bg-blue-500" type="button" onClick={handleUnSubscribe}>
+              <button
+                className="text-white bg-blue-400 w-full hover:bg-blue-500"
+                type="button"
+                onClick={handleUnSubscribe}
+              >
                 Unsubscribe
               </button>
-              <div className="text-sm mt-2 font-italic">If you've already subscribe your weather forecast</div> 
+              <div className="text-sm mt-2 font-italic">
+                If you've already subscribe your weather forecast
+              </div>
             </div>
           </div>
         </div>
