@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*','https://golden-owl-intern-reactjs.vercel.app'],
 
     'allowed_origins_patterns' => [],
 

@@ -30,6 +30,7 @@ class WeatherController extends Controller
 
     public function getDynamicWeather($dynamic, Request $request): JsonResponse
     {
+        
         //if the city is stored, then display weather history
         if ($dynamic == $this->nameOfCity) {
             return response()->json($this->weatherHistory);
