@@ -8,3 +8,5 @@ use App\Http\Controllers\WeatherController;
 // });
 Route::get('/', [WeatherController::class, 'getWeather']);
 Route::get('/{dynamic}', [WeatherController::class, 'getDynamicWeather']);
+Route::post('/subscribe', [WeatherController::class, 'sendEmail']);
+Route::post('/unsubscribe', [WeatherController::class, 'unSendEmail']);
