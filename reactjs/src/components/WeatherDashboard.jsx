@@ -7,7 +7,7 @@ const WeatherDashboard = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
-  const baseURL = "http://localhost:8000";
+  const baseURL = "https://golden-owl-intern-laravel.vercel.app";
 
   const fetchWeatherData = async (city = "Ho Chi Minh City") => {
     try {
