@@ -49,7 +49,7 @@ const WeatherDashboard = () => {
       headers: {
         Accept: "application/json",
       },
-      withCredentials: true,
+      // withCredentials: true,
     });
 
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -67,7 +67,7 @@ const WeatherDashboard = () => {
             headers: {
               Accept: "application/json",
             },
-            withCredentials: true,
+            // withCredentials: true,
             withXSRFToken: true,
           }
         );
@@ -87,7 +87,7 @@ const WeatherDashboard = () => {
       headers: {
         Accept: "application/json",
       },
-      withCredentials: true,
+      // withCredentials: true,
     });
 
     try {
@@ -101,7 +101,7 @@ const WeatherDashboard = () => {
           headers: {
             Accept: "application/json",
           },
-          withCredentials: true,
+          // withCredentials: true,
           withXSRFToken: true,
         }
       );
