@@ -45,12 +45,7 @@ const WeatherDashboard = () => {
 
   const handleSubscribe = async () => {
     // Retrieve CSRF cookie
-    await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
-      headers: {
-        Accept: "application/json",
-      },
-      // withCredentials: true,
-    });
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
 
     navigator.geolocation.getCurrentPosition(async (position) => {
       const latitude = position.coords.latitude;
@@ -67,7 +62,7 @@ const WeatherDashboard = () => {
             headers: {
               Accept: "application/json",
             },
-            // withCredentials: true,
+            withCredentials: true,
             withXSRFToken: true,
           }
         );
@@ -75,20 +70,15 @@ const WeatherDashboard = () => {
         alert("Subscribe email successfully !");
         setError("");
       } catch (err) {
-        setError(err.email);
+        setError(err.response.data.message);
         // setLoading(false);
-        console.log(err);
+        console.log("this is error",err);
       }
     });
   };
   const handleUnSubscribe = async () => {
     // Retrieve CSRF cookie
-    await axios.get(`${baseURL}/sanctum/csrf-cookie`, {
-      headers: {
-        Accept: "application/json",
-      },
-      // withCredentials: true,
-    });
+    await axios.get(`${baseURL}/sanctum/csrf-cookie`);
 
     try {
       // Proceed to unsubscribe
@@ -101,7 +91,7 @@ const WeatherDashboard = () => {
           headers: {
             Accept: "application/json",
           },
-          // withCredentials: true,
+          withCredentials: true,
           withXSRFToken: true,
         }
       );
@@ -109,7 +99,7 @@ const WeatherDashboard = () => {
       alert("Unsubscribe email successfully !");
       setError("");
     } catch (err) {
-      setError(err.email);
+      setError(err.response.data.message);
       // setLoading(false);
       console.log(err);
     }
